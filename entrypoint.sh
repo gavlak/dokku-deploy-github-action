@@ -6,12 +6,18 @@ DOKKU_HOST=$3
 DOKKU_APP_NAME=$4
 DOKKU_REMOTE_BRANCH=$5
 GIT_PUSH_FLAGS=$6
+DOKKU_PORT=$7
 
 # Setup the SSH environment
 mkdir -p ~/.ssh
 eval `ssh-agent -s`
 ssh-add - <<< "$SSH_PRIVATE_KEY"
 ssh-keyscan $DOKKU_HOST >> ~/.ssh/known_hosts
+
+if [! -z $DOKKU_PORT]
+then 
+    "Host $DOKKU_HOST\n    Port $DOKKU_PORT" > ~/.ssh/config
+fi
 
 # Setup the git environment
 git_repo="$DOKKU_USER@$DOKKU_HOST:$DOKKU_APP_NAME"
