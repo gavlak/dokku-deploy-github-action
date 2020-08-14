@@ -14,7 +14,7 @@ eval `ssh-agent -s`
 ssh-add - <<< "$SSH_PRIVATE_KEY"
 ssh-keyscan $DOKKU_HOST >> ~/.ssh/known_hosts
 
-"Host $DOKKU_HOST\n    Port $DOKKU_PORT" > ~/.ssh/config
+echo "Host $DOKKU_HOST\n    Port $DOKKU_PORT" > ~/.ssh/config
 
 # Setup the git environment
 git_repo="$DOKKU_USER@$DOKKU_HOST:$DOKKU_APP_NAME"
